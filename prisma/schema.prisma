@@ -18,7 +18,7 @@ model Producto {
   pedidos  Pedido[]
 }
 
-model Pedido {
+model Pedido { 
   id        Int       @id @default(autoincrement())
   fecha     DateTime  @default(now())
   estado    String

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registro de Pedido</title>
+</head>
+<body>
+  <h1>Registro de Pedido</h1>
+
+  <form id="pedidoForm">
+    <label for="estado">Estado:</label>
+    <select id="estado" name="estado" required>
+      <option value="pendiente">Pendiente</option>
+      <option value="en_proceso">En proceso</option>
+      <option value="completado">Completado</option>
+      <option value="cancelado">Cancelado</option>
+    </select><br>
+
+    <label for="productos">Productos:</label><br>
+    <div id="productosContainer"></div><br>
+
+    <input type="submit" value="Registrar Pedido">
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var productosContainer = document.getElementById("productosContainer");
+
+      // Cargar los productos desde la URL
+      fetch("http://localhost:3000/productos")
+        .then(response => response.json())
+        .then(data => {
+          // Generar los checkboxes de productos
+          data.forEach(producto => {
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = "productos[]";
+            checkbox.value = producto.id;
+
+            var label = document.createElement("label");
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(producto.nombre));
+
+            productosContainer.appendChild(label);
+            productosContainer.appendChild(document.createElement("br"));
+          });
+        })
+        .catch(error => {
+          console.error("Error al cargar los productos:", error);
+        });
+    });
+
+    document.getElementById("pedidoForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Evita el envío del formulario por defecto
+
+      var form = document.getElementById("pedidoForm");
+      var formData = new FormData(form);
+
+      // Obtener los productos seleccionados como un array
+      var productosSeleccionados = [];
+      formData.getAll("productos[]").forEach(producto => {
+        productosSeleccionados.push(producto);
+      });
+
+      // Construir el objeto de datos para enviar al backend
+      var data = {
+        estado: formData.get("estado"),
+        productos: productosSeleccionados
+      };
+
+      fetch("http://localhost:3000/pedidos", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Pedido registrado:", data);
+        // Hacer algo con la respuesta del servidor, por ejemplo, mostrar un mensaje de éxito
+        alert("Pedido registrado correctamente");
+        form.reset(); // Limpiar el formulario
+      })
+      .catch(error => {
+        console.error("Error al registrar el pedido:", error);
+        // Hacer algo con el error, por ejemplo, mostrar un mensaje de error
+        alert("Error al registrar el pedido");
+      });
+    });
+  </script>
+</body>
+</html>

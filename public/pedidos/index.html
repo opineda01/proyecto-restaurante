@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pedidos Registrados</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pedidos Registrados</h1>
+  
+  <table id="pedidosTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Estado</th>
+        <th>Productos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Aquí se agregarán las filas de pedidos dinámicamente -->
+    </tbody>
+  </table>
+  
+  <script>
+    // Obtener la referencia a la tabla
+    var table = document.getElementById("pedidosTable");
+
+    // Función para agregar una fila de pedido a la tabla
+    function agregarFilaPedido(pedido) {
+      var row = table.insertRow(-1);
+      var idCell = row.insertCell(0);
+      var estadoCell = row.insertCell(1);
+      var productosCell = row.insertCell(2);
+      
+      idCell.innerHTML = pedido.id;
+      estadoCell.innerHTML = pedido.estado;
+      productosCell.innerHTML = pedido.productos.map(producto=>{return producto.nombre;}).join(' , ')
+    }
+
+    // Obtener los pedidos registrados mediante una solicitud al servidor
+    fetch("http://localhost:3000/pedidos")
+      .then(response => response.json())
+      .then(data => {
+        // Iterar sobre los pedidos y agregar una fila por cada uno
+        data.forEach(pedido => agregarFilaPedido(pedido));
+      })
+      .catch(error => {
+        console.error("Error al obtener los pedidos:", error);
+        // Hacer algo con el error, por ejemplo, mostrar un mensaje de error
+        alert("Error al obtener los pedidos");
+      });
+  </script>
+</body>
+</html>

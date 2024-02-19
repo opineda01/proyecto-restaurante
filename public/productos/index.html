@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Productos Registrados</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Productos Registrados</h1>
+  
+  <table id="productosTable">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Stock</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Aquí se agregarán las filas de productos dinámicamente -->
+    </tbody>
+  </table>
+  
+  <script>
+    // Obtener la referencia a la tabla
+    var table = document.getElementById("productosTable");
+
+    // Función para agregar una fila de producto a la tabla
+    function agregarFilaProducto(producto) {
+      var row = table.insertRow(-1);
+      var nombreCell = row.insertCell(0);
+      var precioCell = row.insertCell(1);
+      var stockCell = row.insertCell(2);
+      
+      nombreCell.innerHTML = producto.nombre;
+      precioCell.innerHTML = producto.precio;
+      stockCell.innerHTML = producto.stock;
+    }
+
+    // Obtener los productos registrados mediante una solicitud al servidor
+    fetch("http://localhost:3000/productos")
+      .then(response => response.json())
+      .then(data => {
+        // Iterar sobre los productos y agregar una fila por cada uno
+        data.forEach(producto => agregarFilaProducto(producto));
+      })
+      .catch(error => {
+        console.error("Error al obtener los productos:", error);
+        // Hacer algo con el error, por ejemplo, mostrar un mensaje de error
+        alert("Error al obtener los productos");
+      });
+  </script>
+</body>
+</html>
