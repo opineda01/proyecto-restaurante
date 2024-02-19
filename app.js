@@ -1,7 +1,8 @@
 'use strict'
 
-const path = require('node:path')
+const path = require('path')
 const AutoLoad = require('@fastify/autoload')
+const fastifyStatic = require('@fastify/static')
 
 // Pass --options via CLI arguments in command to enable these options.
 const options = {}
@@ -9,6 +10,11 @@ const options = {}
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
 
+  // Register the fastify-static plugin to serve static content
+  fastify.register(fastifyStatic, {
+    root: path.join(__dirname, 'public'),
+    prefix: '/public' // Set the prefix for the static content URL
+  })
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
@@ -23,16 +29,9 @@ module.exports = async function (fastify, opts) {
   // define your routes in one of these
   fastify.register(AutoLoad, {
     dir: path.join(__dirname, 'routes'),
-    options: Object.assign({}, opts)
+    options: Object.assign({}, opts),
+    prefix: '/api'
   })
-
-  fastify.register(require('@fastify/static'), {
-    root: path.join(__dirname, 'public'),
-    prefix: '/public/',
-  });
-
 }
-
-
 
 module.exports.options = options
