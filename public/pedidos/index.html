@@ -3,27 +3,40 @@
 <head>
   <title>Pedidos Registrados</title>
   <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fff5ee; /* Un color de fondo suave */
+      margin: 0;
+      padding: 20px;
+    }
+    .header {
+      color: #a0522d;
+      text-align: center;
+      margin-bottom: 20px;
+    }
     table {
       border-collapse: collapse;
       width: 100%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    
     th, td {
-      border: 1px solid black;
+      border: 1px solid #ddd;
       padding: 8px;
       text-align: left;
     }
-    
     th {
-      background-color: #f2f2f2;
+      background-color: #a0522d;
+      color: white;
     }
+    tr:nth-child(even){background-color: #f2f2f2;}
   </style>
 </head>
 <body>
-  <h1>Pedidos Registrados</h1>
+  <h1 class="header">Pedidos Registrados</h1>
   
   <table id="pedidosTable">
     <thead>
+     
       <tr>
         <th>ID</th>
         <th>Estado</th>
@@ -35,7 +48,8 @@
     </tbody>
   </table>
   
-  <script>
+  
+     <script>
     // Obtener la referencia a la tabla
     var table = document.getElementById("pedidosTable");
 
@@ -64,5 +78,9 @@
         alert("Error al obtener los pedidos");
       });
   </script>
+  <div style="text-align: center; margin-top: 20px;">
+    <button onclick="window.location.href='../inicio/index.html'" style="padding: 10px 20px; background-color: #a0522d; color: white; border: none; border-radius: 5px; cursor: pointer;">Volver al Inicio</button>
+  </div>
+  
 </body>
 </html>

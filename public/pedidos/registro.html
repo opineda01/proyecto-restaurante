@@ -2,24 +2,76 @@
 <html>
 <head>
   <title>Registro de Pedido</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fff5ee; /* Un color de fondo suave */
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #a0522d;
+    }
+    label, select {
+      margin-top: 10px;
+      display: block;
+      color: #333;
+    }
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box; /* Asegura que padding no afecte el ancho */
+    }
+    input[type="submit"], button {
+      background-color: #a0522d;
+      color: white;
+      padding: 10px 20px;
+      margin: 20px 0;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    input[type="submit"]:hover, button:hover {
+      background-color: #8b4513;
+    }
+    button {
+      background-color: #8b4513; /* Un color diferente para el botón de regreso */
+    }
+  </style>
 </head>
 <body>
-  <h1>Registro de Pedido</h1>
+  <div class="container">
+    <h1>Registro de Pedido</h1>
 
-  <form id="pedidoForm">
-    <label for="estado">Estado:</label>
-    <select id="estado" name="estado" required>
-      <option value="pendiente">Pendiente</option>
-      <option value="en_proceso">En proceso</option>
-      <option value="completado">Completado</option>
-      <option value="cancelado">Cancelado</option>
-    </select><br>
+    <form id="pedidoForm">
+      <label for="estado">Estado:</label>
+      <select id="estado" name="estado" required>
+        <option value="pendiente">Pendiente</option>
+        <option value="en_proceso">En proceso</option>
+        <option value="completado">Completado</option>
+        <option value="cancelado">Cancelado</option>
+      </select><br>
 
-    <label for="productos">Productos:</label><br>
-    <div id="productosContainer"></div><br>
+      <label for="productos">Productos:</label><br>
+      <div id="productosContainer"></div><br>
 
-    <input type="submit" value="Registrar Pedido">
-  </form>
+      <input type="submit" value="Registrar Pedido">
+      <!-- Botones para mejorar la navegación -->
+      <button type="button" onclick="window.location.href='../pedidos/index.html'">Ver pedidos</button>
+      <button type="button" onclick="window.location.href='../inicio/index.html'">Volver a Inicio</button>
+    </form>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {

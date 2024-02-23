@@ -3,17 +3,48 @@
 <head>
   <title>Productos Registrados</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff5ee;
+    }
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    .nav {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      background-color: #eee;
+    }
+    .nav a, .nav button {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      padding: 10px;
+      background-color:#a0522d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .nav button:hover {
+      background-color: #a02020;
+    }
     table {
       border-collapse: collapse;
       width: 100%;
     }
-    
     th, td {
       border: 1px solid black;
       padding: 8px;
       text-align: left;
     }
-    
     th {
       background-color: #f2f2f2;
     }
@@ -21,6 +52,8 @@
 </head>
 <body>
   <h1>Productos Registrados</h1>
+  </div>
+ 
   
   <table id="productosTable">
     <thead>
@@ -64,5 +97,10 @@
         alert("Error al obtener los productos");
       });
   </script>
+
+  <div class="nav">
+    <!-- Botón para regresar a la página principal -->
+    <button onclick="window.location.href='../inicio/index.html'">Volver a Inicio</button>
+  </div>
 </body>
 </html>
